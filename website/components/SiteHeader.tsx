@@ -73,7 +73,7 @@ export function SiteHeader({
             <div className="flex items-center gap-2">
               {right}
               {!isAuthed ? (
-                <Button asChild className="rounded-full">
+                <Button asChild className="hidden md:inline-flex rounded-full">
                   <Link href="/login">تسجيل الدخول</Link>
                 </Button>
               ) : (
