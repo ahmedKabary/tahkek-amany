@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import Image from 'next/image'
+import { LoadingImage } from '@/components/LoadingImage'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { House, Menu, UserRound, X } from 'lucide-react'
@@ -43,7 +43,7 @@ export function SiteHeader({
           <div className="flex h-16 items-center justify-between gap-3">
             <Link href="/" className="flex items-center gap-3">
               <div className="relative h-9 w-24">
-                <Image
+                <LoadingImage
                   src="/Resala.png"
                   alt="Resala"
                   fill

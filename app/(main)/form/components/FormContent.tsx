@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
 import React from "react"
 import Link from 'next/link'
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image'
+import { LoadingImage } from '@/components/LoadingImage'
 import { useAuth } from '@/contexts/AuthContext';
 import { db } from '@/lib/firebase';
 import {
@@ -379,7 +379,11 @@ export function FormContent() {
 
                   {success && (
                     <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800 shadow-xs">
-                      ✅ تم استلام أمنيتك بنجاح. سنراجعها ونتواصل معك قريباً.
+                      ✅ تم استلام أمنيتك بنجاح. سنراجعها ونتواصل معك قريباً. يمكنك متابعة حالة أمنيتك من{' '}
+                      <Link href="/profile" className="text-sky-700 hover:underline font-medium">
+                        الملف الشخصي
+                      </Link>
+                      .
                     </div>
                   )}
                 </form>
@@ -400,7 +404,7 @@ export function FormContent() {
               </div>
 
               <div className="mt-6 relative aspect-square w-full">
-                <Image
+                <LoadingImage
                   src="/genie.png"
                   alt="genie"
                   fill
