@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
 import { useEffect, useState } from 'react';
-import Image from 'next/image'
+import { LoadingImage } from '@/components/LoadingImage'
 import Link from 'next/link'
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
@@ -62,7 +62,7 @@ export function LoginContent() {
                 {/* Logo area */}
                 <div className="flex items-center justify-between gap-4">
                   <Link href="/" className="relative h-10 w-28">
-                    <Image
+                    <LoadingImage
                       src="/Resala.png"
                       alt="Resala"
                       fill
@@ -141,7 +141,7 @@ export function LoginContent() {
                 </div>
 
                 <div className="mt-6 relative aspect-square w-full">
-                  <Image
+                  <LoadingImage
                     src="/genie.png"
                     alt="genie"
                     fill

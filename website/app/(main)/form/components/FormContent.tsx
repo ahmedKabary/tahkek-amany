@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
 import React from "react"
 import Link from 'next/link'
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image'
+import { LoadingImage } from '@/components/LoadingImage'
 import { useAuth } from '@/contexts/AuthContext';
 import { db } from '@/lib/firebase';
 import {
@@ -191,6 +191,8 @@ export function FormContent() {
       });
 
       setSuccess(true);
+      // Immediately reflect that there is now an active wish so the form locks
+      setCurrentStatus('pending');
       setFormData({ name: '', phone: '', wish: '' });
 
       // Reset success message after 3 seconds
@@ -377,9 +379,22 @@ export function FormContent() {
                     )}
                   </Button>
 
+                  {(currentStatus === 'processing' || currentStatus === 'pending' || currentStatus === 'completed') && (
+                    <div className="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed text-center">
+                      يمكنك متابعة الامنية من{' '}
+                      <Link href="/profile" className="text-sky-700 hover:underline">
+                        الملف الشخصي
+                      </Link>
+                    </div>
+                  )}
+
                   {success && (
                     <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800 shadow-xs">
-                      ✅ تم استلام أمنيتك بنجاح. سنراجعها ونتواصل معك قريباً.
+                      ✅ تم استلام أمنيتك بنجاح. سنراجعها ونتواصل معك قريباً. يمكنك متابعة حالة أمنيتك من{' '}
+                      <Link href="/profile" className="text-sky-700 hover:underline font-medium">
+                        الملف الشخصي
+                      </Link>
+                      .
                     </div>
                   )}
                 </form>
@@ -393,14 +408,11 @@ export function FormContent() {
                 تنبيه
               </div>
               <div className="mt-2 text-sm text-slate-600 leading-relaxed">
-                يمكنك متابعة الامنية من{' '}
-                <Link href="/profile" className="text-sky-700 hover:underline">
-                  الملف الشخصي
-                </Link>
+                لكل مستخدم أمنية واحدة فقط
               </div>
 
               <div className="mt-6 relative aspect-square w-full">
-                <Image
+                <LoadingImage
                   src="/genie.png"
                   alt="genie"
                   fill

@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import Image from 'next/image'
+import { LoadingImage } from '@/components/LoadingImage'
 import Link from 'next/link'
 
 import { PageShell } from '@/components/PageShell'
@@ -41,7 +41,7 @@ export function HomeContent() {
               <Card className="bg-white/70">
                 <CardContent className="p-3 sm:p-4">
                   <div className="relative aspect-[3/2] w-full overflow-hidden rounded-2xl border border-slate-200/80 bg-white">
-                    <Image
+                    <LoadingImage
                       src="/Resala.png"
                       alt="شعار جمعية رسالة"
                       fill
@@ -56,7 +56,7 @@ export function HomeContent() {
               <Card className="bg-white/70">
                 <CardContent className="p-3 sm:p-4">
                   <div className="relative aspect-[3/2] w-full overflow-hidden rounded-2xl border border-slate-200/80 bg-white">
-                    <Image
+                    <LoadingImage
                       src="/amany.png"
                       alt="تحقيق الأماني"
                       fill
@@ -75,7 +75,7 @@ export function HomeContent() {
               <div className="absolute -inset-4 rounded-3xl bg-gradient-to-b from-sky-200/60 via-violet-200/40 to-amber-200/60 blur-2xl" />
               <div className="relative rounded-3xl bg-white/70 border border-slate-200/70 p-6 sm:p-8 shadow-lg">
                 <div className="mt-6 relative aspect-square w-full">
-                  <Image
+                  <LoadingImage
                     src="/genie.png"
                     alt="genie"
                     fill

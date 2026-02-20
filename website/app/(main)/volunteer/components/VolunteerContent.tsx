@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
 import React, { useState } from 'react'
-import Image from 'next/image'
+import { LoadingImage } from '@/components/LoadingImage'
 import { useRouter } from 'next/navigation'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 
@@ -72,7 +72,7 @@ export function VolunteerContent() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="relative h-64 sm:h-72 rounded-2xl overflow-hidden shadow-lg border border-white/50">
-              <Image
+              <LoadingImage
                 src="/volunteer1.png"
                 alt="فريق المتطوعين 1"
                 fill
@@ -82,7 +82,7 @@ export function VolunteerContent() {
               />
             </div>
             <div className="relative h-64 sm:h-72 rounded-2xl overflow-hidden shadow-lg border border-white/50">
-              <Image
+              <LoadingImage
                 src="/volunteer2.png"
                 alt="فريق المتطوعين 2"
                 fill
