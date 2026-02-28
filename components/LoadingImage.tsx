@@ -17,6 +17,9 @@ export function LoadingImage(props: ImageProps) {
       )}
       <Image
         {...props}
+        className={`transition-opacity duration-300 ${
+          loaded ? 'opacity-100' : 'opacity-0'
+        } ${props.className ?? ''}`}
         onLoadingComplete={(img) => {
           setLoaded(true);
           if (typeof props.onLoadingComplete === "function") {
