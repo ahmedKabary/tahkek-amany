@@ -35,6 +35,15 @@ export function LoginContent() {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
       if (result.user) {
+        const idToken = await result.user.getIdToken()
+        const res = await fetch('/api/sessionLogin', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ idToken }),
+        })
+        if (!res.ok) {
+          throw new Error('session login failed')
+        }
         router.push('/form');
       }
     } catch (error: any) {
