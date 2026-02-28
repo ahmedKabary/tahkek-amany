@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { LoadingImage } from '@/components/LoadingImage'
 import Link from 'next/link'
-import { signInWithRedirect, GoogleAuthProvider } from 'firebase/auth';
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { useRouter } from 'next/navigation';
 import { Sparkles as SparklesIcon } from 'lucide-react';
@@ -19,26 +19,10 @@ export function LoginContent() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    // Check if user is already logged in and ensure session cookie is set
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+    // Check if user is already logged in
+    const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        try {
-          const idToken = await user.getIdToken();
-          const res = await fetch('/api/sessionLogin', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ idToken }),
-          });
-
-          if (!res.ok) {
-            throw new Error('session login failed');
-          }
-
-          router.push('/form');
-        } catch (err) {
-          console.error('Error creating session from auth state:', err);
-          setError('خطأ في إنشاء الجلسة. يرجى المحاولة مرة أخرى.');
-        }
+        router.push('/form');
       }
     });
     return () => unsubscribe();
@@ -49,7 +33,19 @@ export function LoginContent() {
     setError('');
     try {
       const provider = new GoogleAuthProvider();
-      await signInWithRedirect(auth, provider);
+      const result = await signInWithPopup(auth, provider);
+      if (result.user) {
+        const idToken = await result.user.getIdToken()
+        const res = await fetch('/api/sessionLogin', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ idToken }),
+        })
+        if (!res.ok) {
+          throw new Error('session login failed')
+        }
+        router.push('/form');
+      }
     } catch (error: any) {
       console.error('Error signing in:', error);
       if (error.code === 'auth/popup-blocked') {
